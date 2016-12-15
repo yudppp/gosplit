@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -35,7 +36,10 @@ func Split(opts Options) error {
 		headerLines[i] = string(b)
 	}
 
-	// TODO: create outprefix dir
+	err = os.MkdirAll(filepath.Dir(opts.OutPrefix), 0755)
+	if err != nil {
+		return err
+	}
 
 	isLast := false
 	index := 0
