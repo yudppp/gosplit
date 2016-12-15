@@ -34,7 +34,6 @@ func Split(opts Options) error {
 		}
 		headerLines[i] = string(b)
 	}
-	fmt.Println(headerLines)
 
 	// TODO: create outprefix dir
 
@@ -56,7 +55,6 @@ func Split(opts Options) error {
 			break
 		}
 		data := append(headerLines, lines...)
-		fmt.Println(data)
 		fileName := opts.OutPrefix + GenerateFileNameSuffix(index)
 		err = ioutil.WriteFile(fileName, []byte(strings.Join(data, "\n")), os.ModePerm)
 		if err != nil {
