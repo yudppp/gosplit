@@ -18,7 +18,13 @@ type Options struct {
 }
 
 func Split(opts Options) error {
-	fmt.Println(opts)
+	filepaths := strings.Split(opts.Infile, "/")
+	fileNames := strings.Split(filepaths[len(filepaths)-1], ".")
+	extention := ""
+	if len(fileNames) > 1 {
+		extention = fileNames[len(fileNames)-1]
+	}
+
 	file, err := os.Open(opts.Infile)
 	if err != nil {
 		return fmt.Errorf("infile is invalid")
@@ -60,6 +66,9 @@ func Split(opts Options) error {
 		}
 		data := append(headerLines, lines...)
 		fileName := opts.OutPrefix + GenerateFileNameSuffix(index)
+		if extention != "" {
+			fileName = fmt.Sprintf("%s.%s", fileName, extention)
+		}
 		err = ioutil.WriteFile(fileName, []byte(strings.Join(data, "\n")), os.ModePerm)
 		if err != nil {
 			return err
