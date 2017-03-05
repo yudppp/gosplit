@@ -69,7 +69,7 @@ func Split(opts Options) error {
 		if extention != "" {
 			fileName = fmt.Sprintf("%s.%s", fileName, extention)
 		}
-		err = ioutil.WriteFile(fileName, []byte(strings.Join(data, "\n")), os.ModePerm)
+		err = ioutil.WriteFile(fileName, []byte(strings.Join(data, "\n")), 0644)
 		if err != nil {
 			return err
 		}
